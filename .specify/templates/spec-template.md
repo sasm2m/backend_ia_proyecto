@@ -75,8 +75,10 @@
   Fill them out with the right edge cases.
 -->
 
-- What happens when [boundary condition]?
-- How does system handle [error scenario]?
+- What happens when the client sends missing or invalid JSON fields?
+- How does the API respond when a requested resource does not exist?
+- What happens when a feature request would require an out-of-scope capability
+  such as authentication, categories, or database persistence?
 
 ## Requirements *(mandatory)*
 
@@ -87,21 +89,36 @@
 
 ### Functional Requirements
 
-- **FR-001**: System MUST [specific capability, e.g., "allow users to create accounts"]
-- **FR-002**: System MUST [specific capability, e.g., "validate email addresses"]
-- **FR-003**: Users MUST be able to [key interaction, e.g., "reset their password"]
-- **FR-004**: System MUST [data requirement, e.g., "persist user preferences"]
-- **FR-005**: System MUST [behavior, e.g., "log all security events"]
+- **FR-001**: System MUST expose the required REST endpoints for the requested
+  feature scope.
+- **FR-002**: System MUST validate all required input data before executing
+  business logic.
+- **FR-003**: System MUST return clear JSON responses for both success and
+  error outcomes.
+- **FR-004**: System MUST keep business rules in services, not in controllers.
+- **FR-005**: System MUST use English names in code elements and API contracts.
 
 *Example of marking unclear requirements:*
 
-- **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
-- **FR-007**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
+- **FR-006**: System MUST manage product data using
+  [NEEDS CLARIFICATION: in-memory collection behavior not specified].
+- **FR-007**: System MUST define health check response fields for
+  [NEEDS CLARIFICATION: exact payload contract not specified].
 
 ### Key Entities *(include if feature involves data)*
 
-- **[Entity 1]**: [What it represents, key attributes without implementation]
-- **[Entity 2]**: [What it represents, relationships to other entities]
+- **[Entity 1]**: [Business entity expressed with English attributes and
+  validation rules]
+- **[Request/Response DTO]**: [API contract model used to validate input or
+  shape JSON output]
+
+## Out of Scope *(mandatory)*
+
+- Features involving categories
+- Features involving users
+- Authentication or security layers
+- Database persistence
+- Inventory movement workflows
 
 ## Success Criteria *(mandatory)*
 
@@ -113,9 +130,12 @@
 ### Measurable Outcomes
 
 - **SC-001**: [Measurable metric, e.g., "Users can complete account creation in under 2 minutes"]
-- **SC-002**: [Measurable metric, e.g., "System handles 1000 concurrent users without degradation"]
-- **SC-003**: [User satisfaction metric, e.g., "90% of users successfully complete primary task on first attempt"]
-- **SC-004**: [Business metric, e.g., "Reduce support tickets related to [X] by 50%"]
+- **SC-002**: [Measurable API outcome, e.g., "Invalid requests always return
+  structured JSON validation errors"]
+- **SC-003**: [Measurable architecture outcome, e.g., "No controller contains
+  business rules after review"]
+- **SC-004**: [Measurable teaching outcome, e.g., "Students can trace request
+  flow from controller to service to model without undocumented shortcuts"]
 
 ## Assumptions
 
@@ -125,7 +145,11 @@
   chosen when the feature description did not specify certain details.
 -->
 
-- [Assumption about target users, e.g., "Users have stable internet connectivity"]
-- [Assumption about scope boundaries, e.g., "Mobile support is out of scope for v1"]
-- [Assumption about data/environment, e.g., "Existing authentication system will be reused"]
-- [Dependency on existing system/service, e.g., "Requires access to the existing user profile API"]
+- [Assumption about target users, e.g., "Students and instructors will inspect
+  a simple REST API implementation"]
+- [Assumption about scope boundaries, e.g., "Only product management and health
+  check behavior are in scope for v1"]
+- [Assumption about data/environment, e.g., "Data remains in memory until a
+  future scope update allows persistence"]
+- [Dependency on existing system/service, e.g., "No external identity or
+  inventory movement service is required in this phase"]

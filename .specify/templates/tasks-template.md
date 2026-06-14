@@ -9,7 +9,8 @@ description: "Task list template for feature implementation"
 
 **Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/
 
-**Tests**: The examples below include test tasks. Tests are OPTIONAL - only include them if explicitly requested in the feature specification.
+**Tests**: The examples below include test tasks. Tests are OPTIONAL - only
+include them if explicitly requested in the feature specification.
 
 **Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
 
@@ -63,12 +64,14 @@ description: "Task list template for feature implementation"
 
 Examples of foundational tasks (adjust based on your project):
 
-- [ ] T004 Setup database schema and migrations framework
-- [ ] T005 [P] Implement authentication/authorization framework
-- [ ] T006 [P] Setup API routing and middleware structure
-- [ ] T007 Create base models/entities that all stories depend on
-- [ ] T008 Configure error handling and logging infrastructure
-- [ ] T009 Setup environment configuration management
+- [ ] T004 Setup Spring Boot package structure for controller, service, and
+  model layers
+- [ ] T005 [P] Configure shared JSON error handling and response conventions
+- [ ] T006 [P] Configure request validation support for API inputs
+- [ ] T007 Create base models/DTOs that all stories depend on
+- [ ] T008 Document or configure in-memory state strategy when persistence is
+  out of scope
+- [ ] T009 Confirm forbidden scope items are excluded from the implementation
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -93,8 +96,8 @@ Examples of foundational tasks (adjust based on your project):
 - [ ] T013 [P] [US1] Create [Entity2] model in src/models/[entity2].py
 - [ ] T014 [US1] Implement [Service] in src/services/[service].py (depends on T012, T013)
 - [ ] T015 [US1] Implement [endpoint/feature] in src/[location]/[file].py
-- [ ] T016 [US1] Add validation and error handling
-- [ ] T017 [US1] Add logging for user story 1 operations
+- [ ] T016 [US1] Add request validation and JSON error handling
+- [ ] T017 [US1] Verify controller delegates business rules to the service
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
@@ -155,7 +158,7 @@ Examples of foundational tasks (adjust based on your project):
 - [ ] TXXX Code cleanup and refactoring
 - [ ] TXXX Performance optimization across all stories
 - [ ] TXXX [P] Additional unit tests (if requested) in tests/unit/
-- [ ] TXXX Security hardening
+- [ ] TXXX Validate that no out-of-scope security or persistence features were added
 - [ ] TXXX Run quickstart.md validation
 
 ---
@@ -182,6 +185,7 @@ Examples of foundational tasks (adjust based on your project):
 - Tests (if included) MUST be written and FAIL before implementation
 - Models before services
 - Services before endpoints
+- Validation before final response handling
 - Core implementation before integration
 - Story complete before moving to next priority
 
@@ -249,4 +253,6 @@ With multiple developers:
 - Verify tests fail before implementing
 - Commit after each task or logical group
 - Stop at any checkpoint to validate story independently
-- Avoid: vague tasks, same file conflicts, cross-story dependencies that break independence
+- Avoid: vague tasks, same file conflicts, business logic in controllers,
+  and prohibited scope expansions such as authentication, database persistence,
+  categories, users, or inventory movements

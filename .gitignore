@@ -1,0 +1,13 @@
+target/
+build/
+*.class
+*.jar
+.gradle/
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+.vscode/
+.idea/
+*.log
+.env*

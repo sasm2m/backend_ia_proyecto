@@ -40,7 +40,15 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- Confirm the implementation uses Java 25, Spring Boot 4.0.6, and Maven.
+- Confirm the design preserves layered REST architecture with explicit
+  controller, service, and model responsibilities.
+- Confirm controllers stay thin and business logic is assigned to services.
+- Confirm request validation and JSON success/error responses are defined.
+- Confirm naming in code and API contracts is in English.
+- Confirm the feature does not add categories, users, authentication, security,
+  database persistence, or inventory movements unless the constitution is
+  amended first.
 
 ## Project Structure
 
