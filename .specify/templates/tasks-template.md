@@ -158,7 +158,7 @@ Examples of foundational tasks (adjust based on your project):
 - [ ] TXXX Code cleanup and refactoring
 - [ ] TXXX Performance optimization across all stories
 - [ ] TXXX [P] Additional unit tests (if requested) in tests/unit/
-- [ ] TXXX Validate that no out-of-scope security or persistence features were added
+- [ ] TXXX Validate that no out-of-scope user, security, or persistence features were added
 - [ ] TXXX Run quickstart.md validation
 
 ---
@@ -254,5 +254,5 @@ With multiple developers:
 - Commit after each task or logical group
 - Stop at any checkpoint to validate story independently
 - Avoid: vague tasks, same file conflicts, business logic in controllers,
-  and prohibited scope expansions such as authentication, database persistence,
-  categories, users, or inventory movements
+  and prohibited scope expansions such as users, authentication, advanced
+  security, or database persistence

@@ -46,9 +46,11 @@
 - Confirm controllers stay thin and business logic is assigned to services.
 - Confirm request validation and JSON success/error responses are defined.
 - Confirm naming in code and API contracts is in English.
-- Confirm the feature does not add categories, users, authentication, security,
-  database persistence, or inventory movements unless the constitution is
-  amended first.
+- Confirm the feature stays within the currently approved modules: product
+  management, health check, purchase orders, stock alerts, inbound stock
+  movements triggered by order receipt, and operational reporting.
+- Confirm the feature does not add users, authentication, advanced security, or
+  database persistence unless the constitution is amended first.
 
 ## Project Structure
 
