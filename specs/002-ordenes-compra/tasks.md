@@ -21,8 +21,8 @@ implementation and testing of each story.
 
 **Purpose**: Prepare feature-specific packages and API documentation support
 
-- [ ] T001 Create repository package placeholder and feature folder structure in `src/main/java/com/smartinventory/api/repository/.gitkeep`
-- [ ] T002 Configure Swagger/OpenAPI annotations support for purchase-order endpoints in `pom.xml`
+- [X] T001 Create repository package and feature folder structure in `src/main/java/com/smartinventory/api/repository/`, `src/main/java/com/smartinventory/api/entity/`, `src/main/java/com/smartinventory/api/enums/`, and `src/main/java/com/smartinventory/api/dto/`
+- [X] T002 Configure Swagger/OpenAPI annotations support for purchase-order endpoints in `pom.xml`
 
 ---
 
@@ -32,13 +32,13 @@ implementation and testing of each story.
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T003 Implement TASK-01 `OrderStatus` enum in `src/main/java/com/smartinventory/api/model/OrderStatus.java`
-- [ ] T004 [P] Implement TASK-02 base `PurchaseOrder` entity in `src/main/java/com/smartinventory/api/model/PurchaseOrder.java`
+- [X] T003 Implement TASK-01 `OrderStatus` enum in `src/main/java/com/smartinventory/api/enums/OrderStatus.java`
+- [X] T004 [P] Implement TASK-02 base `PurchaseOrder` entity in `src/main/java/com/smartinventory/api/entity/PurchaseOrder.java`
 - [ ] T005 [P] Extend replenishment support in `src/main/java/com/smartinventory/api/model/Product.java`, `src/main/java/com/smartinventory/api/model/StockAlert.java`, `src/main/java/com/smartinventory/api/model/StockEntryMovement.java`, and `src/main/java/com/smartinventory/api/model/Supplier.java`
-- [ ] T006 Implement TASK-03 purchase-order DTOs in `src/main/java/com/smartinventory/api/dto/PurchaseOrderRequest.java`, `src/main/java/com/smartinventory/api/dto/PurchaseOrderResponse.java`, `src/main/java/com/smartinventory/api/dto/OrderStatusUpdateRequest.java`, `src/main/java/com/smartinventory/api/dto/PendingOrderReportResponse.java`, and `src/main/java/com/smartinventory/api/dto/SupplierDeliveryTimeReportResponse.java`
-- [ ] T007 [P] Add purchase-order exception types in `src/main/java/com/smartinventory/api/exception/PurchaseOrderNotFoundException.java`, `src/main/java/com/smartinventory/api/exception/InvalidOrderStatusTransitionException.java`, and `src/main/java/com/smartinventory/api/exception/AutoOrderCreationException.java`
-- [ ] T008 Update shared JSON error mapping for order and transition failures in `src/main/java/com/smartinventory/api/exception/GlobalExceptionHandler.java`
-- [ ] T009 Implement TASK-04 repository contracts with JPQL query definitions in `src/main/java/com/smartinventory/api/repository/PurchaseOrderRepository.java`, `src/main/java/com/smartinventory/api/repository/StockAlertRepository.java`, and `src/main/java/com/smartinventory/api/repository/SupplierRepository.java`
+- [X] T006 Implement TASK-03 purchase-order DTOs in `src/main/java/com/smartinventory/api/dto/request/PurchaseOrderRequestDTO.java`, `src/main/java/com/smartinventory/api/dto/request/PurchaseOrderConfirmDTO.java`, `src/main/java/com/smartinventory/api/dto/request/PurchaseOrderCancelDTO.java`, `src/main/java/com/smartinventory/api/dto/response/PurchaseOrderResponseDTO.java`, `src/main/java/com/smartinventory/api/dto/response/PendingOrderReportDTO.java`, and `src/main/java/com/smartinventory/api/dto/response/SupplierDeliveryAvgDTO.java`
+- [X] T007 [P] Add purchase-order exception types in `src/main/java/com/smartinventory/api/exception/PurchaseOrderNotFoundException.java` and `src/main/java/com/smartinventory/api/exception/BusinessException.java`
+- [X] T008 Update shared JSON error mapping for order and transition failures in `src/main/java/com/smartinventory/api/exception/GlobalExceptionHandler.java`
+- [X] T009 Implement TASK-04 repository contracts with JPQL query definitions in `src/main/java/com/smartinventory/api/repository/PurchaseOrderRepository.java`, `src/main/java/com/smartinventory/api/repository/StockAlertRepository.java`, `src/main/java/com/smartinventory/api/repository/ProductRepository.java`, `src/main/java/com/smartinventory/api/repository/ProductSupplierRepository.java`, and `src/main/java/com/smartinventory/api/repository/StockMovementRepository.java`
 
 **Checkpoint**: Foundation ready - purchase-order stories can now be implemented
 
@@ -59,8 +59,8 @@ its detail successfully
 
 ### Implementation for User Story 1
 
-- [ ] T012 [US1] Implement TASK-05 manual creation and retrieval flows in `src/main/java/com/smartinventory/api/service/PurchaseOrderService.java`
-- [ ] T013 [US1] Implement TASK-07 manual order endpoints with Swagger annotations in `src/main/java/com/smartinventory/api/controller/PurchaseOrderController.java`
+- [X] T012 [US1] Implement TASK-05 manual creation and retrieval flows in `src/main/java/com/smartinventory/api/service/PurchaseOrderService.java`
+- [X] T013 [US1] Implement TASK-07 manual order endpoints with Swagger annotations in `src/main/java/com/smartinventory/api/controller/PurchaseOrderController.java`
 
 **Checkpoint**: User Story 1 should be functional and testable independently
 
@@ -80,8 +80,8 @@ in `DRAFT` is created with the lowest-delivery supplier and `minimumStock * 2`
 
 ### Implementation for User Story 2
 
-- [ ] T015 [US2] Implement automatic generation rules in `src/main/java/com/smartinventory/api/service/PurchaseOrderService.java`
-- [ ] T016 [US2] Implement TASK-06 alert-trigger integration after saving alerts in `src/main/java/com/smartinventory/api/service/StockAlertService.java`
+- [X] T015 [US2] Implement automatic generation rules in `src/main/java/com/smartinventory/api/service/PurchaseOrderService.java`
+- [X] T016 [US2] Implement TASK-06 alert-trigger integration after saving alerts in `src/main/java/com/smartinventory/api/service/StockAlertService.java`
 
 **Checkpoint**: User Stories 1 and 2 should both work independently
 
@@ -102,7 +102,7 @@ and verify stock entry creation, stock increment, and alert resolution
 
 ### Implementation for User Story 3
 
-- [ ] T019 [US3] Complete TASK-05 state machine and receipt side effects in `src/main/java/com/smartinventory/api/service/PurchaseOrderService.java`
+- [X] T019 [US3] Complete TASK-05 state machine and receipt side effects in `src/main/java/com/smartinventory/api/service/PurchaseOrderService.java`
 - [ ] T020 [US3] Implement inbound stock movement orchestration in `src/main/java/com/smartinventory/api/service/StockMovementService.java` and update stock increment behavior in `src/main/java/com/smartinventory/api/service/ProductService.java`
 
 **Checkpoint**: User Stories 1, 2, and 3 should be independently functional
@@ -123,8 +123,8 @@ average delivery time values are returned or empty JSON is returned safely
 
 ### Implementation for User Story 4
 
-- [ ] T022 [US4] Implement report aggregation queries and projections in `src/main/java/com/smartinventory/api/service/PurchaseOrderService.java`
-- [ ] T023 [US4] Implement TASK-08 report endpoints with Swagger annotations in `src/main/java/com/smartinventory/api/controller/ReportController.java`
+- [X] T022 [US4] Implement report aggregation queries and projections in `src/main/java/com/smartinventory/api/service/PurchaseOrderService.java`
+- [X] T023 [US4] Implement TASK-08 report endpoints with Swagger annotations in `src/main/java/com/smartinventory/api/controller/ReportController.java`
 
 **Checkpoint**: All user stories should now be independently functional
 
