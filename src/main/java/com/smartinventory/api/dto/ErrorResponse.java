@@ -44,6 +44,10 @@ public class ErrorResponse {
         this.message = message;
     }
 
+    public String getError() {
+        return message;
+    }
+
     public Map<String, String> getErrors() {
         return errors;
     }

@@ -54,8 +54,8 @@ its detail successfully
 
 ### Tests for User Story 1
 
-- [ ] T010 [P] [US1] Add manual order service tests in `src/test/java/com/smartinventory/api/service/PurchaseOrderServiceTest.java`
-- [ ] T011 [P] [US1] Add manual order controller tests in `src/test/java/com/smartinventory/api/controller/PurchaseOrderControllerTest.java`
+- [X] T010 [P] [US1] Add manual order service tests in `src/test/java/com/smartinventory/api/service/PurchaseOrderServiceTest.java`
+- [X] T011 [P] [US1] Add manual order controller tests in `src/test/java/com/smartinventory/api/controller/PurchaseOrderControllerTest.java`
 
 ### Implementation for User Story 1
 
@@ -76,7 +76,7 @@ in `DRAFT` is created with the lowest-delivery supplier and `minimumStock * 2`
 
 ### Tests for User Story 2
 
-- [ ] T014 [P] [US2] Add automatic generation service tests in `src/test/java/com/smartinventory/api/service/StockAlertServiceTest.java`
+- [X] T014 [P] [US2] Add automatic generation service tests in `src/test/java/com/smartinventory/api/service/PurchaseOrderServiceTest.java`
 
 ### Implementation for User Story 2
 
@@ -97,8 +97,8 @@ and verify stock entry creation, stock increment, and alert resolution
 
 ### Tests for User Story 3
 
-- [ ] T017 [P] [US3] Extend service lifecycle and receipt tests in `src/test/java/com/smartinventory/api/service/PurchaseOrderServiceTest.java`
-- [ ] T018 [P] [US3] Extend controller status transition tests in `src/test/java/com/smartinventory/api/controller/PurchaseOrderControllerTest.java`
+- [X] T017 [P] [US3] Extend service lifecycle and receipt tests in `src/test/java/com/smartinventory/api/service/PurchaseOrderServiceTest.java`
+- [X] T018 [P] [US3] Extend controller status transition tests in `src/test/java/com/smartinventory/api/controller/PurchaseOrderControllerTest.java`
 
 ### Implementation for User Story 3
 
