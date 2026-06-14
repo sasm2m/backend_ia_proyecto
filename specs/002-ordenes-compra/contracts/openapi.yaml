@@ -1,0 +1,384 @@
+openapi: 3.0.3
+info:
+  title: SmartInventory API
+  version: 1.0.0
+  description: |
+    Contract for the purchase-order module covering manual creation,
+    automatic generation from stock alerts, lifecycle transitions,
+    and operational reporting.
+servers:
+  - url: http://localhost:8080
+paths:
+  /api/purchase-orders:
+    get:
+      summary: List purchase orders
+      operationId: listPurchaseOrders
+      responses:
+        '200':
+          description: Purchase orders returned successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PurchaseOrderResponse'
+    post:
+      summary: Create manual purchase order
+      operationId: createPurchaseOrder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PurchaseOrderRequest'
+      responses:
+        '201':
+          description: Purchase order created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurchaseOrderResponse'
+        '400':
+          description: Invalid purchase order input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Product or supplier not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/purchase-orders/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+    get:
+      summary: Get purchase order by ID
+      operationId: getPurchaseOrderById
+      responses:
+        '200':
+          description: Purchase order returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurchaseOrderResponse'
+        '404':
+          description: Purchase order not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/purchase-orders/{id}/status:
+    patch:
+      summary: Update purchase order status
+      operationId: updatePurchaseOrderStatus
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderStatusUpdateRequest'
+      responses:
+        '200':
+          description: Purchase order status updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurchaseOrderResponse'
+        '400':
+          description: Invalid transition or payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Purchase order not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/purchase-orders/auto-generation:
+    post:
+      summary: Trigger automatic purchase-order generation for eligible alerts
+      operationId: triggerAutoGeneration
+      responses:
+        '200':
+          description: Automatic generation processed
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PurchaseOrderResponse'
+        '409':
+          description: Automatic generation skipped because an active order exists or no active supplier is available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/stock-alerts:
+    post:
+      summary: Create or activate a stock alert
+      operationId: createStockAlert
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StockAlertRequest'
+      responses:
+        '201':
+          description: Stock alert created and automatic generation evaluated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StockAlertResponse'
+        '400':
+          description: Invalid stock alert input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/purchase-orders/reports/pending:
+    get:
+      summary: Get pending purchase orders report
+      operationId: getPendingOrdersReport
+      responses:
+        '200':
+          description: Pending orders report returned successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PendingOrderReportResponse'
+  /api/purchase-orders/reports/supplier-delivery-times:
+    get:
+      summary: Get supplier average delivery time report
+      operationId: getSupplierDeliveryTimesReport
+      responses:
+        '200':
+          description: Supplier delivery time report returned successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SupplierDeliveryTimeReportResponse'
+components:
+  schemas:
+    PurchaseOrderRequest:
+      type: object
+      required:
+        - productId
+        - supplierId
+        - quantity
+      properties:
+        productId:
+          type: integer
+          format: int64
+        supplierId:
+          type: integer
+          format: int64
+        quantity:
+          type: integer
+          minimum: 1
+        notes:
+          type: string
+    PurchaseOrderResponse:
+      type: object
+      required:
+        - id
+        - productId
+        - productName
+        - supplierId
+        - supplierName
+        - quantity
+        - status
+        - source
+        - createdAt
+      properties:
+        id:
+          type: integer
+          format: int64
+        productId:
+          type: integer
+          format: int64
+        productName:
+          type: string
+        supplierId:
+          type: integer
+          format: int64
+        supplierName:
+          type: string
+        quantity:
+          type: integer
+        status:
+          $ref: '#/components/schemas/OrderStatus'
+        source:
+          type: string
+          enum: [MANUAL, AUTOMATIC]
+        stockAlertId:
+          type: integer
+          format: int64
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        sentAt:
+          type: string
+          format: date-time
+          nullable: true
+        confirmedAt:
+          type: string
+          format: date-time
+          nullable: true
+        receivedAt:
+          type: string
+          format: date-time
+          nullable: true
+        cancelledAt:
+          type: string
+          format: date-time
+          nullable: true
+        notes:
+          type: string
+          nullable: true
+    OrderStatusUpdateRequest:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          $ref: '#/components/schemas/OrderStatus'
+    OrderStatus:
+      type: string
+      enum:
+        - DRAFT
+        - SENT
+        - CONFIRMED
+        - RECEIVED
+        - CANCELLED
+    StockAlertRequest:
+      type: object
+      required:
+        - productId
+        - currentStock
+        - minimumStock
+      properties:
+        productId:
+          type: integer
+          format: int64
+        currentStock:
+          type: integer
+          minimum: 0
+        minimumStock:
+          type: integer
+          minimum: 1
+    StockAlertResponse:
+      type: object
+      required:
+        - id
+        - productId
+        - currentStock
+        - minimumStock
+        - active
+        - createdAt
+      properties:
+        id:
+          type: integer
+          format: int64
+        productId:
+          type: integer
+          format: int64
+        currentStock:
+          type: integer
+        minimumStock:
+          type: integer
+        active:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        resolvedAt:
+          type: string
+          format: date-time
+          nullable: true
+        resolutionOrderId:
+          type: integer
+          format: int64
+          nullable: true
+    PendingOrderReportResponse:
+      type: object
+      required:
+        - purchaseOrderId
+        - productName
+        - supplierName
+        - status
+        - daysElapsed
+        - createdAt
+      properties:
+        purchaseOrderId:
+          type: integer
+          format: int64
+        productName:
+          type: string
+        supplierName:
+          type: string
+        status:
+          $ref: '#/components/schemas/OrderStatus'
+        daysElapsed:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+    SupplierDeliveryTimeReportResponse:
+      type: object
+      required:
+        - supplierId
+        - supplierName
+        - averageDeliveryDays
+        - receivedOrdersCount
+      properties:
+        supplierId:
+          type: integer
+          format: int64
+        supplierName:
+          type: string
+        averageDeliveryDays:
+          type: number
+          format: double
+          nullable: true
+        receivedOrdersCount:
+          type: integer
+    ErrorResponse:
+      type: object
+      required:
+        - message
+        - path
+        - timestamp
+      properties:
+        message:
+          type: string
+        path:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        errors:
+          type: object
+          additionalProperties:
+            type: string

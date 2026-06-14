@@ -78,7 +78,7 @@
 - What happens when the client sends missing or invalid JSON fields?
 - How does the API respond when a requested resource does not exist?
 - What happens when a feature request would require an out-of-scope capability
-  such as authentication, categories, or database persistence?
+  such as users, authentication, advanced security, or database persistence?
 
 ## Requirements *(mandatory)*
 
@@ -114,11 +114,10 @@
 
 ## Out of Scope *(mandatory)*
 
-- Features involving categories
 - Features involving users
 - Authentication or security layers
 - Database persistence
-- Inventory movement workflows
+- Features outside the approved business modules for the current constitution
 
 ## Success Criteria *(mandatory)*
 
